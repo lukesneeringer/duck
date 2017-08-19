@@ -10,7 +10,7 @@ def stub(target, attribute=None, create=False, spec=None,
     """Replace the given target with a mock object or replacement callable.
 
     Ordinarily, the replacement object is a :class:`duck.Stub`, but if the
-    ``new_callable`` argument is provided, then th is class is used instead.
+    ``new_callable`` argument is provided, then this class is used instead.
 
     Args:
         target (Union[Any, str]): The object to be patched. If ``attribute``
