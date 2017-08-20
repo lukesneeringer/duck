@@ -59,7 +59,7 @@ jobs:
           command: codecov
     working_directory: /var/code/duck
 
-  node8:
+  python36:
     docker:
       - image: python:3.6
     steps:
