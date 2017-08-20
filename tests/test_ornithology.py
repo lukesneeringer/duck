@@ -2,9 +2,9 @@
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 import duck
-from duck.ornithology import Instance
-from duck.ornithology import ANY
 from duck.compat import mock
+from duck.ornithology import ANY
+from duck.ornithology import Instance
 
 
 def test_ornithology():
