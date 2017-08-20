@@ -15,18 +15,19 @@ class _Instance(object):
     True if and only if the other comparison object is an
     instance of the provided class (as defined by isinstance).
     """
+    def __init__(self, _class):
+        self._class = _class
 
     def __eq__(self, other):
-        return isinstance(self, other)
+        return isinstance(other, self._class)
 
     def __ne__(self, other):
-        return -isinstance(self, other)
+        return not isinstance(other, self._class)
 
     def __repr__(self):
         return '<Instance>'
 
-Instance = _Instance()
-
+Instance = _Instance
 
 __all__ = (
     'ANY',

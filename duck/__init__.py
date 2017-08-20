@@ -21,4 +21,6 @@ __all__ = (
     'Spy',
     'Stub',
     'stub',
+    'ANY'
+    'Instance'
 )
