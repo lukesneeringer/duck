@@ -2,7 +2,7 @@
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 from duck import mocks
-# from duck.compat import mock
+from duck.compat import mock
 
 
 def stub(target, attribute=None, create=False, spec=None,
@@ -33,4 +33,55 @@ def stub(target, attribute=None, create=False, spec=None,
             this is :class:`duck.mocks.Stub`.
         kwargs (dict): Any additional keyword arguments are passed to the
             callable.
+
+    Returns:
+        unittest.mock._patch: A patch object provided by mock.
     """
+    # Create the mock object that should be used.
+    # We use our specialized subclass here, which means *it* must eat up
+    # the spec argument.
+    name = attribute
+    if attribute is None:
+        name = target.split('.')[-1]
+    stub = new_callable(name=name, **kwargs)
+
+    # Return the appropriate patcher object.
+    if attribute is not None:
+        patcher = mock.patch.object(target, attribute, new=stub, create=create)
+    else:
+        patcher = mock.patch(target, new=stub, create=create)
+
+    # Determine the appropriate spec for the mock.
+    # By default, this is the autospec of the object being mocked, but we
+    # have to duplicate some mock logic here since we are using our own
+    # callable.
+    if spec is None:
+        stub.mock_add_spec(
+            mock.create_autospec(patcher.get_original()[0]),
+            spec_set=True,
+        )
+    elif spec is not False:
+        stub.mock_add_spec(spec, spec_set=True)
+    else:
+        stub.mock_add_spec(None)
+
+    # Return the patcher.
+    return patcher
+
+
+def spy(target, attribute):
+    """Replace the given target with a spy object.
+
+    The substitute object is a :class:`duck.Spy` object, which is a mock
+    that will nonetheless route the actual calls to the original object.
+
+    Args:
+        target (Union[class, module]): This is expected to be a class or
+            module, and it is provided to :meth:`mock.patch.object`.
+        attribute (str): The attribute to be replaced.
+
+    Returns:
+        unittest.mock._patch: A patch object provided by mock.
+    """
+    spy_ = mocks.Spy(wraps=getattr(target, attribute))
+    return mock.patch.object(target, attribute, new=spy_)
