@@ -22,7 +22,7 @@ class Instance(object):
         return isinstance(other, self._class)
 
     def __ne__(self, other):
-        return not isinstance(other, self._class)
+        return not self._class == other
 
     def __repr__(self):
         return '<Instance>'
@@ -30,5 +30,5 @@ class Instance(object):
 
 __all__ = (
     'ANY',
-    'Instance'
+    'Instance',
 )
