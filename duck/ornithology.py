@@ -25,7 +25,7 @@ class _Instance(object):
     def __repr__(self):
         return '<Instance>'
 
-Instance = _Instance
+Instance = _Instance()
 
 
 __all__ = (
