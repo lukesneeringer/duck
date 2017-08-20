@@ -1,6 +1,7 @@
 # Copyright 2017 Luke Sneeringer
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
+from duck.api import spy
 from duck.api import stub
 from duck.compat import mock
 from duck.mocks import Mock
@@ -17,6 +18,7 @@ __all__ = (
     'Mock',
     'sentinel',
     'Spy',
+    'spy',
     'Stub',
     'stub',
 )

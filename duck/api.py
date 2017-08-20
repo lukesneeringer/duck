@@ -56,7 +56,10 @@ def stub(target, attribute=None, create=False, spec=None,
     # have to duplicate some mock logic here since we are using our own
     # callable.
     if spec is None:
-        stub.mock_add_spec(patcher.get_original()[0], spec_set=True)
+        stub.mock_add_spec(
+            mock.create_autospec(patcher.get_original()[0]),
+            spec_set=True,
+        )
     elif spec is not False:
         stub.mock_add_spec(spec, spec_set=True)
     else:
@@ -80,5 +83,5 @@ def spy(target, attribute):
     Returns:
         unittest.mock._patch: A patch object provided by mock.
     """
-    spy_ = mocks.Spy(wraps=getattr(target, attribute), name=attribute)
-    return mock.patch.object(target, attribute, new_callable=spy_)
+    spy_ = mocks.Spy(wraps=getattr(target, attribute))
+    return mock.patch.object(target, attribute, new=spy_)
