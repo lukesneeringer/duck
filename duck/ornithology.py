@@ -40,21 +40,21 @@ class Instance(Predicate):
 
 
 class Needle(Predicate):
+    """An object considered equal to any instance in which the compared
+    value is contained within the presented object.
+
+    Args:
+        haystack (object): The object to be searched for the compared value
     """
-     Instances of Needle have an .__eq__ method that returns
-     True if and only if the provided needle is contained within
-     the other comparison object (as defined by .__contains__).
-     For example, it is true that quack.Needle('foo') == 'foobar'
-    """
-    def __init__(self, object_):
-        self._object = object_
+    def __init__(self, haystack):
+        self._object = haystack
         # todo: we may need to use a helper function to capture an AttributeError
         # or TypeError here, unless we're okay with the unhandled exceptions when
         # mismatching types
-        super(Needle, self).__init__(lambda t: object_.__contains__(t))
+        super(Needle, self).__init__(lambda t: haystack.__contains__(t))
 
     def __repr__(self):
-        return '<Needle: {0}>'.format(self._object)
+        return '<Needle: haystack: {0}>'.format(self._object)
 
 
 __all__ = (
