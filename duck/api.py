@@ -1,8 +1,8 @@
 # Copyright 2017 Luke Sneeringer
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
-from duck.compat import mock
 from duck import mocks
+# from duck.compat import mock
 
 
 def stub(target, attribute=None, create=False, spec=None,

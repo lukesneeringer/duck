@@ -1,0 +1,89 @@
+---
+version: 2.0
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - python27
+      - python34
+      - python35
+      - python36
+      - lint
+
+jobs:
+  python27:
+    docker:
+      - image: python:2.7
+    steps:
+      - checkout
+      - run:
+          name: Install nox and codecov.
+          command: pip install codecov nox-automation
+      - run:
+          name: Run unit tests.
+          command: nox -s "unit_tests(python_version='2.7')"
+      - run:
+          name: Submit coverage data to codecov.
+          command: codecov
+    working_directory: /var/code/duck
+
+  python34:
+    docker:
+      - image: python:3.4
+    steps:
+      - checkout
+      - run:
+          name: Install nox and codecov.
+          command: pip install codecov nox-automation
+      - run:
+          name: Run unit tests.
+          command: nox -s "unit_tests(python_version='3.4')"
+      - run:
+          name: Submit coverage data to codecov.
+          command: codecov
+    working_directory: /var/code/duck
+
+  python35:
+    docker:
+      - image: python:3.5
+    steps:
+      - checkout
+      - run:
+          name: Install nox and codecov.
+          command: pip install codecov nox-automation
+      - run:
+          name: Run unit tests.
+          command: nox -s "unit_tests(python_version='3.5')"
+      - run:
+          name: Submit coverage data to codecov.
+          command: codecov
+    working_directory: /var/code/duck
+
+  python36:
+    docker:
+      - image: python:3.6
+    steps:
+      - checkout
+      - run:
+          name: Install nox and codecov.
+          command: pip install codecov nox-automation
+      - run:
+          name: Run unit tests.
+          command: nox -s "unit_tests(python_version='3.6')"
+      - run:
+          name: Submit coverage data to codecov.
+          command: codecov
+    working_directory: /var/code/duck
+
+  lint:
+    docker:
+      - image: python:3.6
+    steps:
+      - checkout
+      - run:
+          name: Install nox.
+          command: pip install nox-automation
+      - run:
+          name: Run linting.
+          command: nox -s lint
+    working_directory: /var/code/duck
