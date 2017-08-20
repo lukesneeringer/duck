@@ -3,6 +3,7 @@
 
 from duck.api import spy
 from duck.api import stub
+from duck.call import Call
 from duck.compat import mock
 from duck.mocks import Mock
 from duck.mocks import Spy
@@ -16,6 +17,7 @@ sentinel = mock.sentinel
 
 
 __all__ = (
+    'Call',
     'DEFAULT',
     'Mock',
     'sentinel',
