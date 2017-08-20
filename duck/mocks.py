@@ -47,7 +47,14 @@ class Mock(mock.MagicMock):
     """
     def __init__(self, name=None, spec=(), side_effect=None,
                  return_value=mock.DEFAULT, wraps=None, **kwargs):
-        pass
+        return super(Mock, self).__init__(
+            name=name,
+            return_value=return_value,
+            side_effect=side_effect,
+            spec_set=spec,
+            wraps=wraps,
+            **kwargs
+        )
 
 
 class Stub(Mock):
@@ -55,7 +62,19 @@ class Stub(Mock):
 
 
 class Spy(Stub):
-    pass
+    """A Spy object, which wraps another object but passes calls on to it.
+
+    Args:
+        wraps (Callable): The callable to be spied on. Attribute access on the
+            mock will return a Mock object that wraps the corresponding
+            attribute of the wrapped object (so attempting to access an
+            attribute that does not exist will raise :exc:`AttributeError`).
+    """
+    def __init__(self, wraps):
+        return super(Spy, self).__init__(
+            name=wraps.__name__,
+            wraps=wraps,
+        )
 
 
 __all__ = (

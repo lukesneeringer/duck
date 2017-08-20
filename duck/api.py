@@ -33,4 +33,41 @@ def stub(target, attribute=None, create=False, spec=None,
             this is :class:`duck.mocks.Stub`.
         kwargs (dict): Any additional keyword arguments are passed to the
             callable.
+
+    Returns:
+        unittest.mock._patch: A patch object provided by mock.
     """
+    # Determine the appropriate spec for the mock.
+    # By default, this is autospec=True, unless a spec is provided or
+    # explicitly turned off.
+    if spec is None:
+        kwargs['autospec'] = True
+    elif spec is not False:
+        kwargs['spec_set'] = spec
+
+    # Place the `create` and `new_callable` arguments into **kwargs.
+    kwargs['create'] = create
+    kwargs['new_callable'] = new_callable
+
+    # Return the appropriate mock function.
+    if attribute is not None:
+        return mock.patch.object(target, attribute, **kwargs)
+    return mock.patch(target, **kwargs)
+
+
+def spy(target, attribute):
+    """Replace the given target with a spy object.
+
+    The substitute object is a :class:`duck.Spy` object, which is a mock
+    that will nonetheless route the actual calls to the original object.
+
+    Args:
+        target (Union[class, module]): This is expected to be a class or
+            module, and it is provided to :meth:`mock.patch.object`.
+        attribute (str): The attribute to be replaced.
+
+    Returns:
+        unittest.mock._patch: A patch object provided by mock.
+    """
+    spy_ = mocks.Spy(wraps=getattr(target, attribute), name=attribute)
+    return mock.patch.object(target, attribute, new_callable=spy_)
