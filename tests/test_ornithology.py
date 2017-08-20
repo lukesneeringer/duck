@@ -1,10 +1,10 @@
 # Copyright 2017 Luke Sneeringer
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
+import duck
 from duck.ornithology import Instance
 from duck.ornithology import ANY
 from duck.compat import mock
-import duck
 
 
 def test_ornithology():
