@@ -22,10 +22,10 @@ class Instance(object):
         return isinstance(other, self._class)
 
     def __ne__(self, other):
-        return not self._class == other
+        return not self == other
 
     def __repr__(self):
-        return '<Instance>'
+        return '<Instance: {}>'.format(self._class.__name__)
 
 
 __all__ = (

@@ -14,6 +14,7 @@ def test_ornithology():
     assert Instance(int) != mockfloat
     assert ANY == mockint
     assert not ANY != mockint
+    assert repr(Instance(int)) == '<Instance: int>'
 
 
 def test_ornithology_compat():
@@ -23,3 +24,4 @@ def test_ornithology_compat():
     assert Instance(int) != mockfloat
     assert ANY == mockint
     assert not ANY != mockint
+    assert repr(Instance(int)) == "<Instance: int>"
