@@ -10,16 +10,16 @@ from duck.compat import mock
 def test_ornithology():
     mockint = duck.Mock(spec=int)
     mockfloat = duck.Mock(spec=float)
-    assert mockint == Instance(int)
-    assert mockfloat != Instance(int)
-    assert mockint == ANY
-    assert not mockint != ANY
+    assert Instance(int) == mockint
+    assert Instance(int) != mockfloat
+    assert ANY == mockint
+    assert not ANY != mockint
 
 
 def test_ornithology_compat():
     mockint = mock.Mock(spec=int)
     mockfloat = mock.Mock(spec=float)
-    assert mockint == Instance(int)
-    assert mockfloat != Instance(int)
-    assert mockint == ANY
-    assert not mockint != ANY
+    assert Instance(int) == mockint
+    assert Instance(int) != mockfloat
+    assert ANY == mockint
+    assert not ANY != mockint
