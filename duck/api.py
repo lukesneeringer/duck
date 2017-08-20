@@ -2,7 +2,7 @@
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 from duck import mocks
-# from duck.compat import mock
+from duck.compat import mock
 
 
 def stub(target, attribute=None, create=False, spec=None,
@@ -37,22 +37,33 @@ def stub(target, attribute=None, create=False, spec=None,
     Returns:
         unittest.mock._patch: A patch object provided by mock.
     """
-    # Determine the appropriate spec for the mock.
-    # By default, this is autospec=True, unless a spec is provided or
-    # explicitly turned off.
-    if spec is None:
-        kwargs['autospec'] = True
-    elif spec is not False:
-        kwargs['spec_set'] = spec
+    # Create the mock object that should be used.
+    # We use our specialized subclass here, which means *it* must eat up
+    # the spec argument.
+    name = attribute
+    if attribute is None:
+        name = target.split('.')[-1]
+    stub = new_callable(name=name, **kwargs)
 
-    # Place the `create` and `new_callable` arguments into **kwargs.
-    kwargs['create'] = create
-    kwargs['new_callable'] = new_callable
-
-    # Return the appropriate mock function.
+    # Return the appropriate patcher object.
     if attribute is not None:
-        return mock.patch.object(target, attribute, **kwargs)
-    return mock.patch(target, **kwargs)
+        patcher = mock.patch.object(target, attribute, new=stub, create=create)
+    else:
+        patcher = mock.patch(target, new=stub, create=create)
+
+    # Determine the appropriate spec for the mock.
+    # By default, this is the autospec of the object being mocked, but we
+    # have to duplicate some mock logic here since we are using our own
+    # callable.
+    if spec is None:
+        stub.mock_add_spec(patcher.get_original()[0], spec_set=True)
+    elif spec is not False:
+        stub.mock_add_spec(spec, spec_set=True)
+    else:
+        stub.mock_add_spec(None)
+
+    # Return the patcher.
+    return patcher
 
 
 def spy(target, attribute):
