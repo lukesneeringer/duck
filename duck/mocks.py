@@ -45,9 +45,9 @@ class Mock(mock.MagicMock):
             ``return_value`` wins and ``wraps`` is ignored.
         kwargs (dict): Attributes to be set on the mock after it is created.
     """
-    def __init__(self, name=None, spec=(), side_effect=None,
-                 return_value=mock.DEFAULT, wraps=None, **kwargs):
-        pass
+    # def __init__(self, name=None, spec=(), side_effect=None,
+    #              return_value=mock.DEFAULT, wraps=None, **kwargs):
+    #     pass
 
 
 class Stub(Mock):
