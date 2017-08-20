@@ -5,6 +5,7 @@ import duck
 from duck.compat import mock
 from duck.ornithology import ANY
 from duck.ornithology import Instance
+from duck.ornithology import Needle
 
 
 def test_ornithology():
@@ -52,3 +53,23 @@ def test_ornithology_science():
     assert "foo" == ANY
     assert not "foobar" != ANY
     assert repr(Instance(int)) == '<Instance: int>'
+
+
+def test_ornithology_needle():
+    """
+    Tests for the needle
+    :return:
+    """
+    try:
+        collect = {"foo": "bar", "baz": 1}
+        word = "quack"
+        unsorted_list = [1, 2, "five"]
+        assert Needle(collect) == "foo"
+        assert Needle(word) == "ack"
+        assert not Needle(word) == "duck"
+        assert Needle(unsorted_list) == 1
+        assert Needle(unsorted_list) == "five"
+        assert not Needle(unsorted_list) == 3
+        assert repr(Needle(unsorted_list)) == "<Needle: [1, 2, 'five']>"
+    except AttributeError as ae:
+        print(ae)
