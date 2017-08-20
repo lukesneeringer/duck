@@ -8,6 +8,7 @@ from duck.mocks import Spy
 from duck.mocks import Stub
 from duck.ornithology import ANY
 from duck.ornithology import Instance
+from duck.ornithology import Needle
 from duck.ornithology import Predicate
 
 # Expose certain items in `mock` in our namespace.
@@ -25,4 +26,5 @@ __all__ = (
     'ANY',
     'Instance',
     'Predicate',
+    'Needle',
 )

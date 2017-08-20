@@ -60,6 +60,6 @@ class Needle(Predicate):
 __all__ = (
     'ANY',
     'Instance',
-    'Predicate'
-    'Needle'
+    'Predicate',
+    'Needle',
 )
