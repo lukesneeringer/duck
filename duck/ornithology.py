@@ -9,7 +9,7 @@ from duck.compat import mock
 ANY = mock.ANY
 
 
-class _Instance(object):
+class Instance(object):
     """
     Instances of Instance have an .__eq__ method that returns
     True if and only if the other comparison object is an
@@ -26,9 +26,6 @@ class _Instance(object):
 
     def __repr__(self):
         return '<Instance>'
-
-
-Instance = _Instance
 
 
 __all__ = (
