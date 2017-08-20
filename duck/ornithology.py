@@ -10,7 +10,8 @@ ANY = mock.ANY
 
 
 class Instance(object):
-    """
+    """A class that checks equality based on type.
+
     Instances of Instance have an .__eq__ method that returns
     True if and only if the other comparison object is an
     instance of the provided class (as defined by isinstance).
@@ -25,7 +26,7 @@ class Instance(object):
         return not self == other
 
     def __repr__(self):
-        return '<Instance: {}>'.format(self._class.__name__)
+        return '<Instance: {0}>'.format(self._class.__name__)
 
 
 __all__ = (
