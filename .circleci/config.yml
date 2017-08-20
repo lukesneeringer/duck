@@ -53,7 +53,7 @@ jobs:
           command: pip install codecov nox-automation
       - run:
           name: Run unit tests.
-          command: nox -s "unit_tests(python_version='3.4')"
+          command: nox -s "unit_tests(python_version='3.5')"
       - run:
           name: Submit coverage data to codecov.
           command: codecov
@@ -69,7 +69,7 @@ jobs:
           command: pip install codecov nox-automation
       - run:
           name: Run unit tests.
-          command: nox -s "unit_tests(python_version='3.4')"
+          command: nox -s "unit_tests(python_version='3.6')"
       - run:
           name: Submit coverage data to codecov.
           command: codecov
