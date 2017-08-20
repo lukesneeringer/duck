@@ -10,7 +10,8 @@ ANY = mock.ANY
 
 
 class Predicate(object):
-    """An object considered to be equal to anything that passes its predicate function.
+    """An object considered to be equal to anything that passes its predicate
+    function.
 
     Args:
         predicate (Callable): The predicate to use to test.
@@ -48,9 +49,9 @@ class Needle(Predicate):
     """
     def __init__(self, haystack):
         self._object = haystack
-        # todo: we may need to use a helper function to capture an AttributeError
-        # or TypeError here, unless we're okay with the unhandled exceptions when
-        # mismatching types
+        # todo: we may need to use a helper function to capture an
+        # AttributeError or TypeError here, unless we're okay with the
+        # unhandled exceptions when mismatching types
         super(Needle, self).__init__(lambda t: haystack.__contains__(t))
 
     def __repr__(self):
