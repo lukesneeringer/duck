@@ -7,6 +7,8 @@ from duck.compat import mock
 from duck.mocks import Mock
 from duck.mocks import Spy
 from duck.mocks import Stub
+from duck.ornithology import ANY
+from duck.ornithology import Instance
 
 # Expose certain items in `mock` in our namespace.
 DEFAULT = mock.DEFAULT
@@ -21,4 +23,6 @@ __all__ = (
     'spy',
     'Stub',
     'stub',
+    'ANY',
+    'Instance',
 )
