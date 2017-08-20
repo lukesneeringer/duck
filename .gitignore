@@ -67,3 +67,7 @@ target/
 .venv
 venv/
 ENV/
+
+# IDEs
+.idea
+.idea/*
