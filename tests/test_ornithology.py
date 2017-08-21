@@ -9,6 +9,9 @@ from duck.ornithology import Needle
 
 
 def test_ornithology_any():
+    """
+    Tests for ANY alias.
+    """
     mockint = duck.Mock(spec=int)
     assert ANY == mockint
     assert not ANY != mockint
@@ -26,6 +29,9 @@ def test_ornithology_any():
 
 
 def test_ornithology_instance():
+    """
+    Tests for the Instance comparator
+    """
     mockint = duck.Mock(spec=int)
     mockfloat = duck.Mock(spec=float)
     assert Instance(int) == mockint
@@ -47,20 +53,15 @@ def test_ornithology_instance():
 
 def test_ornithology_needle():
     """
-    Tests for the needle
-    :return:
+    Tests for the needle comparator
     """
-    try:
-        collect = {"foo": "bar", "baz": 1}
-        word = "quack"
-        value_list = [1, 2, "five"]
-        assert Needle("foo") == collect
-        assert Needle("ack") == word
-        assert not Needle("duck") == word
-        assert Needle(1) == value_list
-        assert Needle("five") == value_list
-        assert not Needle(3) == value_list
-        assert repr(Needle("foo")) == "<Needle: foo>"
-    except AttributeError as ae:
-        print(ae)
-        assert False
+    collect = {"foo": "bar", "baz": 1}
+    word = "quack"
+    value_list = [1, 2, "five"]
+    assert Needle("foo") == collect
+    assert Needle("ack") == word
+    assert not Needle("duck") == word
+    assert Needle(1) == value_list
+    assert Needle("five") == value_list
+    assert not Needle(3) == value_list
+    assert repr(Needle("foo")) == "<Needle: foo>"

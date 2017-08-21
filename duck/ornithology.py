@@ -3,7 +3,7 @@
 
 from duck.compat import mock
 
-# Contains the comparisons preserved from mock for use in asserts.
+# Contains various comparators for use in mocks and tests
 
 # Alias of mock.ANY
 ANY = mock.ANY
