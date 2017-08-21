@@ -5,50 +5,59 @@ import duck
 from duck.compat import mock
 from duck.ornithology import ANY
 from duck.ornithology import Instance
+from duck.ornithology import Needle
 
 
-def test_ornithology():
+def test_ornithology_any():
+    """
+    Tests for ANY alias.
+    """
+    mockint = duck.Mock(spec=int)
+    assert ANY == mockint
+    assert not ANY != mockint
+    assert ANY == "foo"
+    assert not ANY != "foobar"
+    # Reverse order tests
+    assert "foo" == ANY
+    assert not "foobar" != ANY
+    # Tests for compatibility with the original mock implementation.
+    mockint = duck.Mock(spec=int)
+    assert ANY == mockint
+    assert not ANY != mockint
+
+
+def test_ornithology_instance():
+    """
+    Tests for the Instance comparator
+    """
     mockint = duck.Mock(spec=int)
     mockfloat = duck.Mock(spec=float)
     assert Instance(int) == mockint
     assert Instance(int) != mockfloat
     assert Instance(int) == 42
     assert Instance(int) != 2.718
-    assert ANY == mockint
-    assert not ANY != mockint
-    assert ANY == "foo"
-    assert not ANY != "foobar"
     assert repr(Instance(int)) == '<Instance: int>'
-
-
-def test_ornithology_compat():
+    # Reverse order tests
+    assert 42 == Instance(int)
+    assert 2.718 != Instance(int)
+    # Tests for compatibility with the original mock implementation.
     mockint = mock.Mock(spec=int)
     mockfloat = mock.Mock(spec=float)
     assert mockint == Instance(int)
     assert Instance(int) != mockfloat
-    assert Instance(int) == 42
-    assert Instance(int) != 2.718
-    assert ANY == mockint
-    assert not ANY != mockint
-    assert ANY == "foo"
-    assert not ANY != "foobar"
-    assert repr(Instance(int)) == '<Instance: int>'
 
 
-def test_ornithology_science():
+def test_ornithology_needle():
     """
-    Reverse ordered test cases to find out if there's
-    a specific incompatability in python 3.4
-    :return:
+    Tests for the needle comparator
     """
-#    mockint = duck.Mock(spec=int)
-#    mockfloat = duck.Mock(spec=float)
-#    assert mockint == Instance(int)
-#    assert mockfloat != Instance(int)
-    assert 42 == Instance(int)
-    assert 2.718 != Instance(int)
-#    assert mockint == ANY
-#    assert not mockint != ANY
-    assert "foo" == ANY
-    assert not "foobar" != ANY
-    assert repr(Instance(int)) == '<Instance: int>'
+    collect = {"foo": "bar", "baz": 1}
+    word = "quack"
+    value_list = [1, 2, "five"]
+    assert Needle("foo") == collect
+    assert Needle("ack") == word
+    assert not Needle("duck") == word
+    assert Needle(1) == value_list
+    assert Needle("five") == value_list
+    assert not Needle(3) == value_list
+    assert repr(Needle("foo")) == "<Needle: foo>"
