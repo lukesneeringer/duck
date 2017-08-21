@@ -61,3 +61,18 @@ def test_ornithology_needle():
     assert Needle("five") == value_list
     assert not Needle(3) == value_list
     assert repr(Needle("foo")) == "<Needle: foo>"
+
+
+def test_ornithology_regex():
+    """
+    Tests for regex comparisons
+    """
+    pass
+
+
+def test_ornithology_is():
+    """
+    Tests for Is comparisons
+    """
+    pass
+

@@ -55,9 +55,26 @@ class Needle(Predicate):
         return '<Needle: {0}>'.format(self._object)
 
 
+class Regex(Predicate):
+    """
+     Instances of Regex have an .__eq__ method that returns True if
+     and only if the other comparison object passes re.search(regex, other).
+    """
+    pass
+
+
+class Is(Predicate):
+    """
+    Instances of Is have an .__eq__ method that returns
+    True if and only if the other comparison object passes an is check.
+    """
+
+
 __all__ = (
     'ANY',
     'Instance',
     'Predicate',
     'Needle',
+    'Regex',
+    'Is',
 )
