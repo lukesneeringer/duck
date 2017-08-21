@@ -18,8 +18,6 @@ def test_ornithology_any():
     assert ANY == "foo"
     assert not ANY != "foobar"
     # Reverse order tests
-    # assert mockint == ANY # this test breaks in python 3.4
-    # assert not mockfloat != ANY # this test breaks in python 3.4
     assert "foo" == ANY
     assert not "foobar" != ANY
     # Tests for compatibility with the original mock implementation.
@@ -40,8 +38,6 @@ def test_ornithology_instance():
     assert Instance(int) != 2.718
     assert repr(Instance(int)) == '<Instance: int>'
     # Reverse order tests
-    # assert mockint == Instance(int) # this test breaks in python 3.4
-    # assert mockfloat != Instance(int) # this test breaks in python 3.4
     assert 42 == Instance(int)
     assert 2.718 != Instance(int)
     # Tests for compatibility with the original mock implementation.
