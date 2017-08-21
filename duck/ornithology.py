@@ -68,6 +68,7 @@ class Is(Predicate):
     Instances of Is have an .__eq__ method that returns
     True if and only if the other comparison object passes an is check.
     """
+    pass
 
 
 __all__ = (
