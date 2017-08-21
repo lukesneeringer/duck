@@ -54,13 +54,13 @@ def test_ornithology_needle():
         collect = {"foo": "bar", "baz": 1}
         word = "quack"
         value_list = [1, 2, "five"]
-        assert Needle(collect) == "foo"
-        assert Needle(word) == "ack"
-        assert not Needle(word) == "duck"
-        assert Needle(value_list) == 1
-        assert Needle(value_list) == "five"
-        assert not Needle(value_list) == 3
-        assert repr(Needle(value_list)) == "<Needle: haystack: [1, 2, 'five']>"
+        assert Needle("foo") == collect
+        assert Needle("ack") == word
+        assert not Needle("duck") == word
+        assert Needle(1) == value_list
+        assert Needle("five") == value_list
+        assert not Needle(3) == value_list
+        assert repr(Needle("foo")) == "<Needle: foo>"
     except AttributeError as ae:
         print(ae)
         assert False

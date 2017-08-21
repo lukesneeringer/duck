@@ -14,7 +14,7 @@ class Predicate(object):
     function.
 
     Args:
-        predicate (Callable): The predicate to use to test.
+        predicate (Callable -> Bool): The predicate to use to test.
     """
     def __init__(self, predicate):
         self._predicate = predicate
@@ -41,21 +41,18 @@ class Instance(Predicate):
 
 
 class Needle(Predicate):
-    """An object considered equal to any instance in which the compared
-    value is contained within the presented object.
+    """An object considered equal to any instance in which the presented value
+    is contained within the compared object
 
     Args:
-        haystack (object): The object to be searched for the compared value
+        needle (object): The object to search for within the compared object
     """
-    def __init__(self, haystack):
-        self._object = haystack
-        # todo: we may need to use a helper function to capture an
-        # AttributeError or TypeError here, unless we're okay with the
-        # unhandled exceptions when mismatching types
-        super(Needle, self).__init__(lambda t: haystack.__contains__(t))
+    def __init__(self, needle):
+        self._object = needle
+        super(Needle, self).__init__(lambda haystack: needle in haystack)
 
     def __repr__(self):
-        return '<Needle: haystack: {0}>'.format(self._object)
+        return '<Needle: {0}>'.format(self._object)
 
 
 __all__ = (
