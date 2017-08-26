@@ -5,8 +5,8 @@ import duck
 from duck.compat import mock
 from duck.ornithology import ANY
 from duck.ornithology import Instance
-from duck.ornithology import Needle
 from duck.ornithology import Is
+from duck.ornithology import Needle
 from duck.ornithology import Regex
 
 

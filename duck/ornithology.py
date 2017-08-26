@@ -1,8 +1,8 @@
 # Copyright 2017 Luke Sneeringer
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
-from re import search
 from re import MULTILINE
+from re import search
 from duck.compat import mock
 
 
