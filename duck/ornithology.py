@@ -1,9 +1,10 @@
 # Copyright 2017 Luke Sneeringer
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
-from duck.compat import mock
 from re import search
 from re import MULTILINE
+from duck.compat import mock
+
 
 # Contains various comparators for use in mocks and tests
 
@@ -66,7 +67,8 @@ class Regex(Predicate):
     """
     def __init__(self, rex):
         self._object = rex
-        super(Regex, self).__init__(lambda other: search(rex, other, MULTILINE) is not None)
+        super(Regex, self).__init__(lambda other:
+                                    search(rex, other, MULTILINE) is not None)
 
     def __repr__(self):
         return '<Regex: {0}>'.format(self._object)
