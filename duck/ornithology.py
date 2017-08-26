@@ -2,6 +2,7 @@
 # Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 from duck.compat import mock
+from re import search
 
 # Contains various comparators for use in mocks and tests
 
@@ -60,7 +61,12 @@ class Regex(Predicate):
      Instances of Regex have an .__eq__ method that returns True if
      and only if the other comparison object passes re.search(regex, other).
     """
-    pass
+    def __init__(self, rex):
+        self._object = rex
+        super(Regex, self).__init__(lambda other: search(rex, other))
+
+    def __repr__(self):
+        return '<Regex: {0}>'.format(self._object)
 
 
 class Is(Predicate):
@@ -68,7 +74,12 @@ class Is(Predicate):
     Instances of Is have an .__eq__ method that returns
     True if and only if the other comparison object passes an is check.
     """
-    pass
+    def __init__(self, object_):
+        self._object = object_
+        super(Is, self).__init__(lambda class_: is(object_, class_))
+
+    def __repr__(self):
+        return '<Regex: {0}>'.format(self._object)
 
 
 __all__ = (
