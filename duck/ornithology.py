@@ -3,6 +3,7 @@
 
 from duck.compat import mock
 from re import search
+from re import MULTILINE
 
 # Contains various comparators for use in mocks and tests
 
@@ -57,29 +58,33 @@ class Needle(Predicate):
 
 
 class Regex(Predicate):
-    """
-     Instances of Regex have an .__eq__ method that returns True if
-     and only if the other comparison object passes re.search(regex, other).
+    """An object considered equal to any object in which a valid regex
+    can return at least one match. Uses a multiline search.
+
+    Args:
+        rex (str): the regular expression to be used to search the object
     """
     def __init__(self, rex):
         self._object = rex
-        super(Regex, self).__init__(lambda other: search(rex, other))
+        super(Regex, self).__init__(lambda other: search(rex, other, MULTILINE) is not None)
 
     def __repr__(self):
         return '<Regex: {0}>'.format(self._object)
 
 
 class Is(Predicate):
-    """
-    Instances of Is have an .__eq__ method that returns
-    True if and only if the other comparison object passes an is check.
+    """An object considered equal if the compared object is the same
+    object in memory.
+
+    Args:
+        object_ (object): The object to be checked.
     """
     def __init__(self, object_):
         self._object = object_
-        super(Is, self).__init__(lambda class_: is(object_, class_))
+        super(Is, self).__init__(lambda other: object_ is other)
 
     def __repr__(self):
-        return '<Regex: {0}>'.format(self._object)
+        return '<Is: {0}>'.format(self._object)
 
 
 __all__ = (

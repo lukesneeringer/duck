@@ -6,6 +6,9 @@ from duck.compat import mock
 from duck.ornithology import ANY
 from duck.ornithology import Instance
 from duck.ornithology import Needle
+from duck.ornithology import Regex
+from duck.ornithology import Is
+from copy import deepcopy
 
 
 def test_ornithology_any():
@@ -67,12 +70,30 @@ def test_ornithology_regex():
     """
     Tests for regex comparisons
     """
-    pass
+    searched_string = "The Quick Brown Fox Jumped\nover the Lazy Dog"
+    searched_string_b = "The Quick Purple Fox Jumped\nover the Lazy Dog"
+    assert Regex('^over the .azy Dog$') == searched_string
+    assert searched_string_b == Regex('Quick (.+?) Fox')
+    assert not Regex('Quick (.+?) Frog') == searched_string_b
+    assert repr(Regex('Quick (.+?) Frog')) == "<Regex: Quick (.+?) Frog>"
 
 
 def test_ornithology_is():
     """
     Tests for Is comparisons
     """
-    pass
+    mockfloat = duck.Mock(spec=float)
+    duckfloat = mockfloat
+    duckcopy = deepcopy(mockfloat)
+    string_a = "Test"
+    string_b = "Test"
+    assert Is(mockfloat) == duckfloat
+    assert not Is(duckcopy) == mockfloat
+    assert Is(string_a) == string_b
+    assert not Is(string_a + string_b) == string_b
+    assert Is(2+2) == 4
+    assert not Is(2+2) == 5
+    assert repr(Is(string_a)) == "<Is: Test>"
+
+
 
