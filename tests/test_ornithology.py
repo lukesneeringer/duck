@@ -5,7 +5,9 @@ import duck
 from duck.compat import mock
 from duck.ornithology import ANY
 from duck.ornithology import Instance
+from duck.ornithology import Is
 from duck.ornithology import Needle
+from duck.ornithology import Regex
 
 
 def test_ornithology_any():
@@ -61,3 +63,33 @@ def test_ornithology_needle():
     assert Needle("five") == value_list
     assert not Needle(3) == value_list
     assert repr(Needle("foo")) == "<Needle: foo>"
+
+
+def test_ornithology_regex():
+    """
+    Tests for regex comparisons
+    """
+    searched_string = "The Quick Brown Fox Jumped\nover the Lazy Dog"
+    searched_string_b = "The Quick Purple Fox Jumped\nover the Lazy Dog"
+    assert Regex('^over the .azy Dog$') == searched_string
+    assert searched_string_b == Regex('Quick (.+?) Fox')
+    assert not Regex('Quick (.+?) Frog') == searched_string_b
+    assert repr(Regex('Quick (.+?) Frog')) == "<Regex: Quick (.+?) Frog>"
+
+
+def test_ornithology_is():
+    """
+    Tests for Is comparisons
+    """
+    mockfloat = duck.Mock(spec=float)
+    duckfloat = mockfloat
+    testobject = object()
+    string_a = "Test"
+    string_b = "Test"
+    assert Is(mockfloat) == duckfloat
+    assert not Is(duckfloat) == testobject
+    assert Is(string_a) == string_b
+    assert not Is(string_a + string_b) == string_b
+    assert Is(2+2) == 4
+    assert not Is(2+2) == 5
+    assert repr(Is(string_a)) == "<Is: Test>"
